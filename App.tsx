@@ -5,8 +5,7 @@ import TrialRow from './components/TrialRow';
 import StatCard from './components/StatCard';
 import { 
   Search, Filter, ArrowUpDown, ArrowUp, ArrowDown, Leaf, Upload, 
-  Database, LayoutDashboard, Calculator, Settings, Menu, X,
-  BarChart3, TrendingUp, FlaskConical, MapPin, ChevronDown, RefreshCw, Sprout
+  BarChart3, TrendingUp, FlaskConical, ChevronDown, RefreshCw, Sprout
 } from 'lucide-react';
 
 // Logic to determine product if missing
@@ -32,7 +31,6 @@ const normalizeCrop = (crop: string): string => {
 const App: React.FC = () => {
   const [sourceData, setSourceData] = useState<Trial[]>(ALL_TRIALS);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [filters, setFilters] = useState<FilterState>({
     search: '',
@@ -222,64 +220,16 @@ const App: React.FC = () => {
 
   return (
     <div className="flex h-screen bg-slate-100 overflow-hidden font-sans text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
-      {/* Mobile Overlay */}
-      {sidebarOpen && (
-        <div className="fixed inset-0 bg-slate-950/80 z-40 lg:hidden backdrop-blur-sm" onClick={() => setSidebarOpen(false)} />
-      )}
-
-      {/* Sidebar */}
-      <aside className={`fixed lg:relative z-50 w-64 h-full bg-slate-900 text-slate-300 flex flex-col transition-transform duration-300 ease-in-out border-r border-slate-800 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
-        <div className="h-14 flex items-center px-5 bg-slate-950 border-b border-slate-800">
-          <div className="p-1.5 bg-emerald-500 rounded text-slate-900 mr-3">
-             <Leaf size={16} strokeWidth={3} />
-          </div>
-          <span className="text-lg font-bold text-white tracking-tight">AgroTech</span>
-        </div>
-
-        <nav className="flex-1 overflow-y-auto py-6 px-3 space-y-1">
-          <div className="px-3 mb-2 text-xs font-bold text-slate-500 uppercase tracking-wider">Analytics</div>
-          <a href="#" className="flex items-center px-3 py-2 text-sm font-medium rounded-md text-white bg-emerald-600/10 border border-emerald-600/20 shadow-sm relative overflow-hidden group">
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-500"></div>
-            <Database size={18} className="mr-3 text-emerald-500" />
-            <span>Trial Database</span>
-          </a>
-          <a href="#" className="flex items-center px-3 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-slate-800 transition-colors">
-            <LayoutDashboard size={18} className="mr-3 text-slate-500" />
-            <span>Dashboard</span>
-          </a>
-          <a href="#" className="flex items-center px-3 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-slate-800 transition-colors">
-            <Calculator size={18} className="mr-3 text-slate-500" />
-            <span>ROI Calculator</span>
-          </a>
-
-          <div className="mt-8 px-3 mb-2 text-xs font-bold text-slate-500 uppercase tracking-wider">System</div>
-          <a href="#" className="flex items-center px-3 py-2 text-sm font-medium rounded-md hover:text-white hover:bg-slate-800 transition-colors">
-            <Settings size={18} className="mr-3 text-slate-500" />
-            <span>Settings</span>
-          </a>
-        </nav>
-
-        <div className="p-4 border-t border-slate-800 bg-slate-950">
-          <button 
-            onClick={triggerUpload}
-            className="w-full flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-2 rounded-md text-xs font-bold uppercase tracking-wide transition-all"
-          >
-            <Upload size={14} />
-            Import Data
-          </button>
-          <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" accept=".json,.csv" />
-        </div>
-      </aside>
-
+      
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0 bg-slate-50">
         
         {/* Top Header */}
-        <header className="h-14 bg-white border-b border-slate-200 flex items-center justify-between px-6 sticky top-0 z-30 shadow-sm">
-          <div className="flex items-center">
-            <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-2 -ml-2 mr-2 text-slate-500 hover:text-slate-800">
-              <Menu size={20} />
-            </button>
+        <header className="h-14 bg-white border-b border-slate-200 flex items-center justify-between px-4 lg:px-6 sticky top-0 z-30 shadow-sm">
+          <div className="flex items-center gap-3">
+            <div className="p-1.5 bg-emerald-500 rounded text-slate-900 shadow-sm">
+               <Leaf size={16} strokeWidth={3} className="text-white" />
+            </div>
             <div className="flex flex-col">
               <h1 className="text-base font-bold text-slate-900 leading-tight">AgroTech Trial Performance</h1>
               <p className="text-[10px] text-slate-500 font-medium">Internal Dealer Tool v2.4</p>
@@ -297,6 +247,14 @@ const App: React.FC = () => {
                   onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
                 />
              </div>
+             <button 
+                onClick={triggerUpload}
+                className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-md text-xs font-bold uppercase tracking-wide transition-all"
+              >
+                <Upload size={14} />
+                <span className="hidden sm:inline">Import</span>
+              </button>
+              <input type="file" ref={fileInputRef} onChange={handleFileUpload} className="hidden" accept=".json,.csv" />
           </div>
         </header>
 
