@@ -1,0 +1,5 @@
+{
+  "name": "AgroTech Trial Database",
+  "description": "A comprehensive browser for AgroTech USA field trials, featuring filtering, sorting, and statistical analysis of crop yields.",
+  "requestFramePermissions": []
+}
