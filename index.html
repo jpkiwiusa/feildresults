@@ -9,6 +9,10 @@
       tailwind.config = {
         theme: {
           extend: {
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
             colors: {
               emerald: {
                 50: '#ecfdf5',
@@ -21,6 +25,9 @@
                 700: '#047857',
                 800: '#065f46',
                 900: '#064e3b',
+              },
+              slate: {
+                850: '#15202e', // Custom dark shade
               }
             }
           }
@@ -28,26 +35,37 @@
       }
     </script>
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+      
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      
       /* Custom scrollbar for table/pills */
       ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
+        width: 6px;
+        height: 6px;
       }
       ::-webkit-scrollbar-track {
-        background: #f1f1f1; 
+        background: transparent; 
       }
       ::-webkit-scrollbar-thumb {
-        background: #c1c1c1; 
-        border-radius: 4px;
+        background: #cbd5e1; 
+        border-radius: 3px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #a8a8a8; 
+        background: #94a3b8; 
+      }
+      
+      .tabular-nums {
+        font-variant-numeric: tabular-nums;
       }
     </style>
   <script type="importmap">
 {
   "imports": {
     "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-dom/client": "https://aistudiocdn.com/react-dom@^19.2.1/client",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
     "react/": "https://aistudiocdn.com/react@^19.2.1/",
     "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0"
@@ -55,7 +73,8 @@
 }
 </script>
 </head>
-  <body class="bg-gray-100 text-slate-800 antialiased">
-    <div id="root"></div>
+  <body class="bg-slate-50 text-slate-800 antialiased h-screen overflow-hidden">
+    <div id="root" class="h-full"></div>
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>
